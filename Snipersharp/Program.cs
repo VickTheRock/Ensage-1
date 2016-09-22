@@ -33,12 +33,6 @@ namespace SniperSharp
 
         public static void Game_OnUpdate(EventArgs args)
         {
-            _isalived = "yes";
-            me = ObjectManager.LocalHero;
-            if (me.IsAlive == false)
-            {
-                _isalived = "no";
-            }
             if (!Game.IsInGame || me.ClassID != ClassID.CDOTA_Unit_Hero_Sniper) return;
             if (!Menu.Item("toggle").GetValue<bool>()) return;
             var r = me.Spellbook.SpellR;
