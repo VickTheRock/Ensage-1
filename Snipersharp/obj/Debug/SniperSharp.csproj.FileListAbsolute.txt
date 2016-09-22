@@ -1,0 +1,2 @@
+D:\visual studio\projects\SniperSharp\SniperSharp\bin\Debug\SniperSharp.exe.config
+D:\visual studio\projects\SniperSharp\SniperSharp\obj\Debug\SniperSharp.csprojResolveAssemblyReference.cache
