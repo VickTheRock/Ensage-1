@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ namespace SniperSharp
     {
         private static Hero me;
         private static Hero target;
+        private static int manaForR = 375;
         private static readonly Menu Menu = new Menu("Sniper Sharp", "SniperSharp", true, "npc_dota_hero_sniper", true); //test commit 1
         private static string _isalived;
         private static AbilityToggler useAbility;
@@ -22,40 +23,41 @@ namespace SniperSharp
         private static Ability Assasinate;
         private static bool enableR = true;
         private static int minimumDistance = 2000;
+        private static int[] AssasinateDmg = new int[3] { 220, 385, 550 };
 
         static void Main(string[] args)
         {
             Menu.AddItem(new MenuItem("toggle", "Enabled").SetValue(true));
             Menu.AddToMainMenu();
             Game.OnUpdate += Game_OnUpdate;
-            Console.WriteLine("SniperSharp Loaded");
+            Console.WriteLine("Sniper#!");
+
         }
 
-        public static void Game_OnUpdate(EventArgs args)
+            public static void Game_OnUpdate(EventArgs args)
         {
-            if (!Game.IsInGame || me.ClassID != ClassID.CDOTA_Unit_Hero_Sniper) return;
-            if (!Menu.Item("toggle").GetValue<bool>()) return;
-            var r = me.Spellbook.SpellR;
-            var rlvl = me.Spellbook.SpellR.Level;
-            var rdmg = 0;
-            if (rlvl <= 0)
-                rdmg = 0;
-            if (rlvl == 1)
-                rdmg = 220;
-            if (rlvl == 2)
-                rdmg = 385;
-            if (rlvl == 3)
-                rdmg = 550;
-            if (rdmg > target.Health) return;
+            me = ObjectManager.LocalHero;
 
-            if (target != null && Assasinate != null)
+            if (me.ClassID != ClassID.CDOTA_Unit_Hero_Sniper)
+                return;
+            if (me == null)
+                return;
+
+            if (Assasinate == null)
+                Assasinate = me.Spellbook.Spell4;
+
+            if (target != null && Assasinate.CanBeCasted() && me.IsAlive && target.IsAlive);
+
             {
-                Assasinate.UseAbility(target);
-                target = null;
-                
+                if (Assasinate != null && me.Distance2D(target) > 2000 && me.Distance2D(target) < Assasinate.CastRange && Assasinate.CanBeCasted() && me.Health > 250);
+            }
+
+            {
+                Assasinate.UseAbility(target.Position);
             }
 
         }
 
     }
+
 }
