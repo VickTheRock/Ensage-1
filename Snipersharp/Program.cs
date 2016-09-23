@@ -23,18 +23,18 @@ namespace SniperSharp
         private static bool enableR = true;
         private static int minimumDistance = 2000;
         private static int[] AssasinateDmg = new int[3] { 220, 385, 550 };
-        private static int manaForr = 375;
+        private static int manaForAssasinate = 375;
 
         static void Main(string[] args)
         {
             Menu.AddItem(new MenuItem("toggle", "Enabled").SetValue(true));
             Menu.AddToMainMenu();
-            Game.OnUpdate += Game_OnUpdate;
+            Game.OnUpdate += Game_OnUpdateNative;
             Console.WriteLine("Sniper#!");
 
         }
 
-        public static void Game_OnUpdate(EventArgs args)
+        public static void Game_OnUpdateNative(EventArgs args)
         {
             me = ObjectManager.LocalHero;
 
@@ -42,7 +42,7 @@ namespace SniperSharp
                 return;
             Assasinate = me.Spellbook.Spell4;
 
-            if (me.Spellbook.SpellR != null && me.Spellbook.SpellR.CanBeCasted() && me.Mana > me.Spellbook.Spell2.ManaCost && !target.IsMagicImmune() && !target.IsIllusion && me.Mana > manaForr)
+            if (me.Spellbook.Spell4 != null && me.Spellbook.Spell4.CanBeCasted() && me.Mana > me.Spellbook.Spell4.ManaCost && !target.IsMagicImmune() && !target.IsIllusion && me.Mana > manaForAssasinate)
             {
                 me.Spellbook.SpellR.UseAbility(target);
             }
@@ -51,3 +51,4 @@ namespace SniperSharp
     }
 
     }
+
