@@ -8,7 +8,6 @@ using Ensage.Common.Extensions;
 using Ensage.Common.Menu;
 using SharpDX;
 
-
 namespace SniperSharp
 {
     internal class SniperSharp
@@ -24,6 +23,7 @@ namespace SniperSharp
         private static bool enableR = true;
         private static int minimumDistance = 2000;
         private static int[] AssasinateDmg = new int[3] { 220, 385, 550 };
+        private static int manaForr = 375;
 
         static void Main(string[] args)
         {
@@ -40,19 +40,15 @@ namespace SniperSharp
 
             if (me.ClassID != ClassID.CDOTA_Unit_Hero_Sniper)
                 return;
-            if (me == null)
-                return;
+            Assasinate = me.Spellbook.Spell4;
 
-            if (Assasinate == null)
-                Assasinate = me.Spellbook.Spell4;
-
-            if (Assasinate.CanBeCasted() && me.IsAlive && target.IsAlive)
-
-            Assasinate.UseAbility(target.Position);
-            
-
+            if (me.Spellbook.SpellR != null && me.Spellbook.SpellR.CanBeCasted() && me.Mana > me.Spellbook.Spell2.ManaCost && !target.IsMagicImmune() && !target.IsIllusion && me.Mana > manaForr)
+            {
+                me.Spellbook.SpellR.UseAbility(target);
+            }
         }
+    
+    }
 
     }
 
-}
