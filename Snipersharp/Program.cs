@@ -34,7 +34,7 @@ namespace SniperSharp
 
         }
 
-            public static void Game_OnUpdate(EventArgs args)
+        public static void Game_OnUpdate(EventArgs args)
         {
             me = ObjectManager.LocalHero;
 
@@ -46,15 +46,10 @@ namespace SniperSharp
             if (Assasinate == null)
                 Assasinate = me.Spellbook.Spell4;
 
-            if (target != null && Assasinate.CanBeCasted() && me.IsAlive && target.IsAlive);
+            if (Assasinate.CanBeCasted() && me.IsAlive && target.IsAlive)
 
-            {
-                if (Assasinate != null && me.Distance2D(target) > 2000 && me.Distance2D(target) < Assasinate.CastRange && Assasinate.CanBeCasted() && me.Health > 250);
-            }
-
-            {
-                Assasinate.UseAbility(target.Position);
-            }
+            Assasinate.UseAbility(target.Position);
+            
 
         }
 
